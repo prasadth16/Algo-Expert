@@ -1,5 +1,11 @@
 package com.category.simple.twonumbersum;
 
+/**
+ * Time Complexity: O(n)- if we get the sorted array. if need to sort the array
+ * then additional time for sort algorithm.
+ * 
+ * Space Complexity: O(1) Constant space as no need of extra space.
+ **/
 public class TwoNumberSumUsingSorting {
 	public static void main(String[] arg) {
 		int[] targetArray = getTwoNumberSum(new int[] { -7, -5, -3, -1, 0, 1, 3, 5, 7 }, -5);
