@@ -4,8 +4,8 @@ package com.category.simple.datastructures.tree;
  * Binary Search Tree, Construction and Search Time Complexity for both the
  * operations: O(log n) Space Complexity for both the operations: O(log n)
  * 
- * Binary Search Tree Node deletion implemented iterativly and hence the time complexity is O(log n)
- * and the space complexity is 1.
+ * Binary Search Tree Node deletion implemented iterativly and hence the time
+ * complexity is O(log n) and the space complexity is 1.
  **/
 public class BinarySearchTreeConstruction {
 
@@ -13,6 +13,17 @@ public class BinarySearchTreeConstruction {
 		private TreeNode leftReference;
 		private TreeNode rightReference;
 		private Integer data;
+
+		public TreeNode() {
+
+		}
+
+		public TreeNode(TreeNode leftRef, TreeNode rightRef, Integer value) {
+
+			leftReference = leftRef;
+			rightReference = rightRef;
+			data = value;
+		}
 
 		public TreeNode getLeftReference() {
 			return leftReference;
@@ -145,6 +156,34 @@ public class BinarySearchTreeConstruction {
 
 	}
 
+	/***
+	 * This is recurssive approach Time Complexity is O(n) where n is number of
+	 * nodes in the tree space complexity is O(d) as number of recurssive calls
+	 * on the calls stack=depth of the tree at any point.
+	 */
+	public static boolean binarySearchTreeValidator(TreeNode node) {
+		if (node != null) {
+			if (testNodeForBST(node) && binarySearchTreeValidator(node.getLeftReference())
+					&& binarySearchTreeValidator(node.getRightReference())) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean testNodeForBST(TreeNode node) {
+		if (((node.getLeftReference() != null && node.getLeftReference().getNodeData() <= node.getNodeData())
+				|| node.getLeftReference() == null)
+				&& ((node.getRightReference() != null && node.getRightReference().getNodeData() > node.getNodeData())
+						|| node.getRightReference() == null)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static void main(String[] arg) {
 		System.out.println("Constructing and searching element in BST==>");
 		Integer[] inputIntArray = new Integer[] { 17, 1, 45, 78, 43, 23, 15, 56, 76, -12, 100, 0, 22 };
@@ -174,6 +213,16 @@ public class BinarySearchTreeConstruction {
 		System.out.println("Elment 12 deleted!!!!");
 		rootNode = deleteElementFromBST(rootNode, 27);
 		System.out.println("Elment 27 deleted!!!!");
+
+		inputArray = new Integer[] { 23, 21, 27, 12, 22, 25, 30, 14, 24, 28, 42 };
+		rootNode = null;
+		for (Integer ipElement : inputArray) {
+			rootNode = addElementInBST(ipElement, rootNode);
+		}
+		System.out.println("is this a perfect BST? " + binarySearchTreeValidator(rootNode));
+
+		rootNode = new TreeNode(new TreeNode(null, null, 24), new TreeNode(null, null, 17), 20);
+		System.out.println("is this a perfect BST? " + binarySearchTreeValidator(rootNode));
 	}
 
 }
