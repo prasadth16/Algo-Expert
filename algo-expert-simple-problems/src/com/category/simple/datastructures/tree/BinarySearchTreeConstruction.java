@@ -1,5 +1,8 @@
 package com.category.simple.datastructures.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Binary Search Tree, Construction and Search Time Complexity for both the
  * operations: O(log n) Space Complexity for both the operations: O(log n)
@@ -158,8 +161,8 @@ public class BinarySearchTreeConstruction {
 
 	/***
 	 * This is recurssive approach Time Complexity is O(n) where n is number of
-	 * nodes in the tree space complexity is O(d) as number of recurssive calls
-	 * on the calls stack=depth of the tree at any point.
+	 * nodes in the tree space complexity is O(d) as number of recurssive calls on
+	 * the calls stack=depth of the tree at any point.
 	 */
 	public static boolean binarySearchTreeValidator(TreeNode node) {
 		if (node != null) {
@@ -182,6 +185,48 @@ public class BinarySearchTreeConstruction {
 		} else {
 			return false;
 		}
+	}
+
+	/*
+	 * Traversing BST Pre-orderTraversal, Post-Order Traversal, Inorder Traversal
+	 * Time Complexity: O(n) where n is number of nodes in a tree Space Complexity:
+	 * O(h) where h is depth of binary tree
+	 * 
+	 */
+	public static List<Integer> preorderTraversal(TreeNode node, List<Integer> opArray) {
+
+		if (node == null) {
+			return opArray;
+		}
+
+		opArray.add(node.getNodeData());
+		preorderTraversal(node.getLeftReference(), opArray);
+		preorderTraversal(node.getRightReference(), opArray);
+		return opArray;
+
+	}
+
+	public static List<Integer> inOrderTraversal(TreeNode node, List<Integer> opArray) {
+		if (node == null) {
+			return opArray;
+		}
+
+		inOrderTraversal(node.getLeftReference(), opArray);
+		opArray.add(node.getNodeData());
+		inOrderTraversal(node.getRightReference(), opArray);
+
+		return opArray;
+	}
+
+	public static List<Integer> postOrderTraversal(TreeNode node, List<Integer> opArray) {
+		if (node == null) {
+			return opArray;
+		}
+
+		postOrderTraversal(node.getLeftReference(), opArray);
+		postOrderTraversal(node.getRightReference(), opArray);
+		opArray.add(node.getNodeData());
+		return opArray;
 	}
 
 	public static void main(String[] arg) {
@@ -223,6 +268,26 @@ public class BinarySearchTreeConstruction {
 
 		rootNode = new TreeNode(new TreeNode(null, null, 24), new TreeNode(null, null, 17), 20);
 		System.out.println("is this a perfect BST? " + binarySearchTreeValidator(rootNode));
+
+		rootNode = null;
+		for (Integer ipElement : inputArray) {
+			rootNode = addElementInBST(ipElement, rootNode);
+		}
+
+		System.out.println("Traversing a Tree in all three styles!!!!");
+
+		List<Integer> preOrderList = new ArrayList<>();
+		List<Integer> inOrderList = new ArrayList<>();
+		List<Integer> postOrderList = new ArrayList<>();
+		preorderTraversal(rootNode, preOrderList);
+		inOrderTraversal(rootNode, inOrderList);
+		postOrderTraversal(rootNode, postOrderList);
+		System.out.println("Traversing a Tree --> Pre-order");
+		preOrderList.forEach(System.out::println);
+		System.out.println("Traversing a Tree --> In-order");
+		inOrderList.forEach(System.out::println);
+		System.out.println("Traversing a Tree --> Post-order");
+		postOrderList.forEach(System.out::println);
 	}
 
 }
