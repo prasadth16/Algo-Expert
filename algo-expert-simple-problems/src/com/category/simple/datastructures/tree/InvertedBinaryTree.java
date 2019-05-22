@@ -65,7 +65,7 @@ public class InvertedBinaryTree {
 	}
 	/**
 	 * Time Complexity is O(n) where n is the number of nodes in the tree.
-	 * Space Complexity is O(n/2) where n is number of nodes the tree.
+	 * Space Complexity is O(n) where n is number of nodes the tree.
 	 * Reason: Max number of elements in the node stack will be all the leaf elments
 	 * and the leaf elements are n/2 in the binary tree.
 	 * **/

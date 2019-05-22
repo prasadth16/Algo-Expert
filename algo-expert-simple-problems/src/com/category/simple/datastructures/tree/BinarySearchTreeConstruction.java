@@ -54,6 +54,28 @@ public class BinarySearchTreeConstruction {
 
 	}
 
+	static class NearestValueHolder {
+		private static int value;
+		private static int difference;
+
+		public static int getValue() {
+			return value;
+		}
+
+		public static void setValue(int value) {
+			NearestValueHolder.value = value;
+		}
+
+		public static int getDifference() {
+			return difference;
+		}
+
+		public static void setDifference(int difference) {
+			NearestValueHolder.difference = difference;
+		}
+
+	}
+
 	public static TreeNode addElementInBST(Integer element, TreeNode node) {
 		TreeNode newNode = null;
 		if (node == null) {
@@ -228,6 +250,32 @@ public class BinarySearchTreeConstruction {
 		opArray.add(node.getNodeData());
 		return opArray;
 	}
+	/**
+	 * Time Complexity is O(logn)
+	 * space complexity is O(1) or constant space
+	 * **/
+	public static Integer findClosestValueInBST(TreeNode node, Integer targetValue) {
+		TreeNode currentNode = node;
+		NearestValueHolder.setValue(node.getNodeData());
+		NearestValueHolder.setDifference(Math.abs(targetValue - node.getNodeData()));
+		while (currentNode != null) {
+			if (targetValue == currentNode.getNodeData()) {
+				NearestValueHolder.setValue(targetValue);
+				break;
+			}
+			if (Math.abs(targetValue - currentNode.getNodeData()) <= NearestValueHolder.getDifference()) {
+				NearestValueHolder.setDifference(Math.abs(targetValue - currentNode.getNodeData()));
+				NearestValueHolder.setValue(currentNode.getNodeData());
+			}
+			if (currentNode.getNodeData() >= targetValue) {
+				currentNode = currentNode.getLeftReference();
+			} else {
+				currentNode = currentNode.getRightReference();
+			}
+		}
+
+		return NearestValueHolder.getValue();
+	}
 
 	public static void main(String[] arg) {
 		System.out.println("Constructing and searching element in BST==>");
@@ -288,6 +336,15 @@ public class BinarySearchTreeConstruction {
 		inOrderList.forEach(System.out::println);
 		System.out.println("Traversing a Tree --> Post-order");
 		postOrderList.forEach(System.out::println);
+		
+		System.out.println("Searching the nearest value: ");
+		rootNode = null;
+		for (Integer ipElement : inputArray) {
+			rootNode = addElementInBST(ipElement, rootNode);
+		}
+		System.out.println("Nearest Element of 29 in the BST is: "+findClosestValueInBST(rootNode,29));
+		System.out.println("Nearest Element of 27 in the BST is: "+findClosestValueInBST(rootNode,27));
+		System.out.println("Nearest Element of 13 in the BST is: "+findClosestValueInBST(rootNode,13));
 	}
 
 }
