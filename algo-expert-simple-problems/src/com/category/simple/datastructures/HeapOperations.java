@@ -33,11 +33,26 @@ public class HeapOperations {
 		return ipArray;
 	}
 
+	/**
+	 * Time Complexity O(log n) Space Complexity O(1)
+	 **/
 	public static int[] shiftUp(int[] ipArray, int index) {
-
+		int prntindx = Math.floorDiv(index - 1, 2);
+		while (true) {
+			if (ipArray[prntindx] >= ipArray[index]) {
+				ipArray = swapElements(ipArray, prntindx, index);
+				index = prntindx;
+				prntindx = Math.floorDiv(index - 1, 2);
+			} else {
+				break;
+			}
+		}
 		return ipArray;
 	}
 
+	/**
+	 * Time complexity O(log n) Space Complexity O(1)
+	 **/
 	public static int[] shiftDown(int[] ipArray, int ipIndex) {
 		int chldIndx1 = (ipIndex * 2) + 1;
 		int chldIndx2 = (ipIndex * 2) + 2;
@@ -66,12 +81,30 @@ public class HeapOperations {
 		return ipArray;
 	}
 
+	/**
+	 * Insert the element to the bottom of the heap and then shift that element up
+	 * until it reaches to the appropriate position in the Heap. Time complexity
+	 * O(log n) Space Complexity O(1)
+	 **/
+
 	public static int[] insertElement(int[] ipArray, int value) {
+		ipArray[ipArray.length - 1] = value;
+		ipArray = shiftUp(ipArray, ipArray.length - 1);
+
 		return ipArray;
 	}
 
+	/**
+	 * We always delete the root node of the heap data Structures. To Delete it,
+	 * swap it with the last available element from left in the last level of the
+	 * tree with root. Remove the last element from the Heap. Shift down the root
+	 * element until it is at the appropriate position in the array. Time complexity
+	 * O(log n) Space Complexity O(1)
+	 **/
 	public static int[] deleteElement(int[] ipArray) {
-
+		ipArray = swapElements(ipArray, 0, ipArray.length - 1);
+		ipArray[ipArray.length - 1] = Integer.MAX_VALUE;
+		ipArray = HeapOperations.shiftDown(ipArray, 0);
 		return ipArray;
 	}
 
