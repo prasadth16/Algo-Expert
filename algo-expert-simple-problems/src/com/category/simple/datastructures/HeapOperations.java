@@ -22,10 +22,7 @@ public class HeapOperations {
 	 **/
 	public static int[] buildHeap(int[] ipArray, int actualLength) {
 
-		int index = Math.floorDiv(actualLength - 1, 2) < (actualLength - 1) / 2
-				? (Math.floorDiv(actualLength - 1, 2)) - 1
-				: Math.floorDiv(actualLength - 1, 2);
-
+		int index = Math.floorDiv(actualLength - 1, 2);
 		while (index >= 0) {
 			ipArray = shiftDown(ipArray, index);
 			index--;
