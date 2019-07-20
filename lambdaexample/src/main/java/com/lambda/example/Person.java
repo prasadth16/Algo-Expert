@@ -1,7 +1,5 @@
 package com.lambda.example;
 
-import org.hamcrest.core.IsInstanceOf;
-
 public class Person {
 	private String firstName;
 	private String lastName;
